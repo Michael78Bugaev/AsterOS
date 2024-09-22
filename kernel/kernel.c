@@ -20,7 +20,10 @@ s32		kmain()
 	kprint("(AsterOS v.0.01beta)\n"
            "Special beta (not release!) version.\n"
            "Type \"help\" to get some help\n\n");
-	kprint("AsterOS > ");
+	kprint_colored("ash", 0xA);
+    kprint("-(asteros)-");
+    kprint_colored("[0:\\]", 0x0D);
+    kprint_colored("&", 0x0F);
     init_keyboard();
     // -=========================- //
 	return 0;

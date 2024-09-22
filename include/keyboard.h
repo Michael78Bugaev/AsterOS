@@ -114,5 +114,9 @@
 #define ALTGR 0xFFFFFFFF - 31
 #define NUMLCK 0xFFFFFFFF - 32
 
+int backspace_func(char buffer[]);
 void init_keyboard();
+void shell(struct InterruptRegisters *regs);
 void keyboard_handler(struct InterruptRegisters *regs);
+char get_acsii_low(char code);
+char get_acsii_high(char code);

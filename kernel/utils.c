@@ -19,29 +19,35 @@ void syscall(u8 *msg, int type)
 {
 	if (type == 0)
 	{
-		kprint_int(get_ticks());
-		kprint(" | ");
-		kprint_colored("[AsterOS INFO]", 0x0B);
+		kprint_colored("[", 0x0B);
+		kprint_int_colored(get_ticks(), 0x0B);
+		kprint_colored("]", 0x0B);
 		kprint(": ");
 		kprint(msg);
 	}
 	else if (type == 1)
 	{
-		kprint_colored("[AsterOS WARN]", 0x0A);
+		kprint_colored("[", 0x0E);
+		kprint_int_colored(get_ticks(), 0x0E);
+		kprint_colored("]", 0x0E);
 		kprint(": ");
 		kprint(msg);
 	}
 	else if (type == 2)
 	{
-		kprint_colored("[AsterOS ERR]", 0x0C);
+		kprint_colored("[", 0x0C);
+		kprint_int_colored(get_ticks(), 0x0C);
+		kprint_colored("]", 0x0C);
 		kprint(": ");
 		kprint(msg);
 	}
 	else if (type == 3)
 	{
-		kprint_colored("[AsterOS CRITICAL ERROR]", 0xC0);
-		kprint_colored(": ", 0xC0);
-		kprint_colored(msg, 0xC0);
+		kprint_colored("[", 0x04);
+		kprint_int_colored(get_ticks(), 0x04);
+		kprint_colored("]", 0x04);
+		kprint_colored(": ", 0x07);
+		kprint_colored(msg, 0x07);
 	}
 }
 

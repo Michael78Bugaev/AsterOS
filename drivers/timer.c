@@ -6,11 +6,12 @@
 #include <timer.h>
 
 uint64_t ticks;
-const uint32_t freq = 100;
+const uint32_t freq = 1000;
 
 void onIrq0(struct InterruptRegisters *regs)
 {
     ticks += 1;
+    //draw_text_int(0, 0, ticks, 0x3F);
     //int old = get_cursor();
     //set_cursor(0);//                                                                                \n"
     //kprint_colored(" AsterOS 0.01     Beta version                                                  \n", 0x1F);
@@ -32,10 +33,11 @@ void init_timer()
     port_byte_out(0x40, (uint8_t)((divisor >> 8) & 0xFF));
 }
 void sleep(int ms) {
-    uint64_t target_ticks = ticks + (ms * freq / 1000);
-    while (ticks < target_ticks) {
-        // Do nothing, just wait for the timer to tick
-    }
+    uint64_t start = get_ticks();
+    uint64_t target = start + (ms * freq / 1000);
+
+    if (get_ticks() < target)
+        sleep(target);
 }
 
 uint64_t get_ticks() { return ticks; }

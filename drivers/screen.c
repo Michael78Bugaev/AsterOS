@@ -111,6 +111,16 @@ void	putchar(uint8_t character, uint8_t attribute_byte)
 		else
 			set_cursor((offset - offset % (MAX_COLS*2)) + MAX_COLS*2);
 	}
+	else if (character == '\b')
+	{
+		uint8_t x = get_cursor_x(), y = get_cursor_y();
+		if (x > 0 && x != 0)
+		{
+			set_cursor_xy(x - 2, y);
+			putchar(' ', 0x07);
+			set_cursor_xy(x-2, y);
+		}
+	}
 	else 
 	{
 		if (offset == (MAX_COLS * MAX_ROWS * 2)) scroll_line();
@@ -258,4 +268,26 @@ void draw_text_int(uint8_t x, uint8_t y, int str, uint8_t attr)
 	set_cursor_xy(x, y);
 	kprint_int_colored(str, attr);
 	set_cursor(old_offs);
+}
+void kprint_float_colored(float num, int decimal_places, uint8_t color) {
+    int int_part = (int)num;
+    float frac_part = num - int_part;
+
+    char buffer[32];
+
+    // Print the integer part
+    //itoa(int_part, buffer, 10);
+    kprint_colored(buffer, color);
+
+    // Print the decimal point
+    kprint_colored(".", color);
+
+    // Print the fractional part
+    for (int i = 0; i < decimal_places; i++) {
+        frac_part *= 10;
+        int digit = (int)frac_part;
+        frac_part -= digit;
+        char digit_str[2] = { '0' + digit, '\0' };
+        kprint_colored(digit_str, color);
+    }
 }

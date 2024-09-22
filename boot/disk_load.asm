@@ -58,13 +58,13 @@ disk_sectors_error:
 	call print_string
 
 SUCCESS_MSG:
-	db "Disk was successfully read ", 0
+	db 0, 0
 
 DISK_ERR_MSG:
-	db "Disk read error! ", 0
+	db "Disk read error. ", 0
 
 SECTORS_ERR_MSG:
-	db "Incorrect number of sectors read ", 0
+	db "Incorrect number of sectors read. ", 0
 
 disk_loop:
 	jmp $

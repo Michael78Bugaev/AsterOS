@@ -2,6 +2,7 @@
     "files.associations": {
         "screen.h": "c",
         "stdint.h": "c",
-        "timer.h": "c"
+        "timer.h": "c",
+        "stdbool.h": "c"
     }
 }

@@ -12,11 +12,11 @@
 
 KERNEL_OFFSET equ 0x1000	; Смещение в памяти, из которого мы загрузим ядро
 	;Set 80x50 text mode...
-	;mov ax, 4F02h
-	;mov bx, 101h
+	mov ax, 4F02h
+	mov bx, 10Ah
 
-	mov ax, 0x1112
-	int 10h
+	;mov ax, 0x1112
+	;int 10h
 
 
 	mov [BOOT_DRIVE], dl	; BIOS stores our boot drive in DL , so it ’s
@@ -47,7 +47,7 @@ load_kernel:
 							; Устанавливаем параметры для функции disk_load:
 	mov bx, KERNEL_OFFSET	; Загрузим данные в место памяти по		TODO: disk_load main lookup
 							; смещению KERNEL_OFFSET
-	mov dh, 18				; Загрузим много секторов. *
+	mov dh, 30				; Загрузим много секторов. *
 	mov dl, [BOOT_DRIVE]	; Загрузим данные из BOOT_DRIVE (Возвращаем BOOT_DRIVE)
 	call disk_load			; Вызываем функцию disk_load
 	ret
@@ -63,9 +63,9 @@ BEGIN_PM:
 
 
 BOOT_DRIVE:			db 0
-MSG_REAL_MODE:		db "Started in 16-bit Real Mode", 0
-MSG_PROT_MODE:		db "Switched into 32-bit Protected mode", 0
-MSG_LOAD_KERNEL:	db "Loading kernel...", 0
+MSG_REAL_MODE:		db "Starting AsterOS...", 0
+MSG_PROT_MODE:		db "Aster", 0
+MSG_LOAD_KERNEL:	db "", 0
 
 times 510-($-$$) db 0
 dw 0xaa55

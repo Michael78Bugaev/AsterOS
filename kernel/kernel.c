@@ -4,19 +4,24 @@
 #include <lowlevel_io.h>
 #include <utils.h>
 #include <timer.h>
+#include <sp.h>
+#include <mem.h>
 #include <idt.h>
 
 s32		kmain()
 {	
-	//set_vga_mode_640x480x8();
-	//clear_vga_screen(0x00);
-	clear_screen();//                                                                                \n"
-	set_cursor(0);
-	syscall("Loading kernel...\n", 0);
-	sleep(5);
-	int i = 1 / 0;
-	init_idt();
-	init_timer();
-	init_keyboard();
+	clear_screen();
+	syscall("Starting kernel\n", 0);
+	start_services();
+	// -= ENTRY POINT IN KERNEL =- //
+    syscall("Running ASH as a main script\n", 0);
+	kprint("\nWelcome to The "); kprint_colored("Aster Operating System", 0x06);
+	kprint("!\n");
+	kprint("(AsterOS v.0.01beta)\n"
+           "Special beta (not release!) version.\n"
+           "Type \"help\" to get some help\n\n");
+	kprint("AsterOS > ");
+    init_keyboard();
+    // -=========================- //
 	return 0;
 }

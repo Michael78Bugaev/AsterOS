@@ -23,7 +23,7 @@ s32		kmain()
 	kprint_colored("ash", 0xA);
     kprint("-(asteros)-");
     kprint_colored("[0:\\]", 0x0D);
-    kprint_colored("&", 0x0F);
+    kprint_colored(">&", 0x0F);
     init_keyboard();
     // -=========================- //
 	return 0;

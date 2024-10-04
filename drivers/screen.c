@@ -11,6 +11,7 @@
 #include <lowlevel_io.h>
 #include <common.h>
 #include <utils.h>
+#include <timer.h>
 #include <stdint.h>
 
 
@@ -36,7 +37,8 @@ void kprint_int(int num) {
         str[i++] = '0';
     } else {
         if (num < 0) {
-            str[i++] = '-';
+			kprint("-");
+            //str[i++] = '-';
             num = -num;
         }
         while (num > 0) {
@@ -290,4 +292,17 @@ void kprint_float_colored(float num, int decimal_places, uint8_t color) {
         char digit_str[2] = { '0' + digit, '\0' };
         kprint_colored(digit_str, color);
     }
+}
+void kprint_timetick()
+{
+    // Get the current tick count
+    uint32_t tick = get_ticks();
+
+    // Convert the tick count to seconds and milliseconds
+    uint16_t seconds = tick / 1000;
+    uint16_t milliseconds = tick % 1000;
+
+    kprint_int(seconds);
+	kprint(".");
+	kprint_int(milliseconds);
 }

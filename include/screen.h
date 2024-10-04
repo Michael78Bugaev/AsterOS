@@ -35,3 +35,4 @@ void set_cursor_xy(uint8_t x, uint8_t y);
 void draw_text(uint8_t x, uint8_t y, uint8_t *str, uint8_t attr);
 void draw_text_int(uint8_t x, uint8_t y, int str, uint8_t attr);
 void disable_cursor();
+void kprint_timetick();

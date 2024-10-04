@@ -12,7 +12,7 @@ extern void idt_flush(uint32_t);
 
 void init_idt()
 {
-    syscall("Setting up IDT's...", 0);
+    syscall("idt_mgr: Setting up Interrupt Descriptor Table...", 0);
     idt_ptr.limit = sizeof(struct idt_entry_struct) * 256 - 1;
     idt_ptr.base = (uint32_t) &idt_entries;
     memset(&idt_entries, 0, sizeof(struct idt_entry_struct) * 256);

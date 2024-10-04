@@ -4,6 +4,8 @@
 #include <utils.h>
 #include <sp.h>
 #include <stdint.h>
+#include <ash.h>
+#include <uinfo.h>
 #include <timer.h>
 #include <stdbool.h>
 #include <string.h>
@@ -39,7 +41,106 @@ void init_keyboard()
 void shell(struct InterruptRegisters *regs)
 {
     char scanCode = port_byte_in(0x60) & 0x7F;
-	char press = port_byte_in(0x60) & 0x80;
+	  char press = port_byte_in(0x60) & 0x80;
+    //kprint(lowercase[0x22]);
+
+    switch (scanCode)
+    {
+        case 1:
+        case 29:
+        case 56:
+        case 59:
+        case 60:
+        case 61:
+        case 62:
+        case 63:
+        case 64:
+        case 65:
+        case 66:
+        case 67:
+        case 68:
+        case 87:
+        case 88:
+            break;
+        case KEY_LEFT:
+            if (get_cursor_x() > 0 && get_cursor_x() != 0)
+            {
+                set_cursor_xy(get_cursor_x() - 1, get_cursor_y());
+            }
+            break;
+        case KEY_RIGHT:
+            if (get_cursor_x() < 80 && get_cursor_x != 80)
+            {
+                set_cursor_xy(get_cursor_x(), get_cursor_y() + 1);
+            }
+            break;
+        case 42:
+            if (press == 0)
+                capsOn = true;
+            else
+                capsOn = false;
+            break;
+        case 58:
+            if (!capsLock && press == 0)
+            {
+                capsLock = true;
+            }
+            else if (capsLock && press == 0)
+            {
+                capsLock = false;
+            }
+            break;
+        case 40:
+            if (press)
+                putchar('\'', 0x07);
+                join(input, '\'');
+            break;
+        case 0x29:
+            if (press)
+                putchar('~', 0x07);
+                join(input, '~');
+            break;
+        case 0x0E:
+            if (press == 0)
+                putchar('\b', 0x07);
+                backspace_func(input);
+            break;
+        case 0x1C:
+            if (press == 0)
+            {
+                kprint("\n");
+                ash(input);
+                input[0] = '\0';
+                kprint("AsterOS > ");
+            }
+            else;    
+                
+            break;
+        case 0x0F:
+            if (press);
+            break;
+        default:
+            if (press == 0)
+            {
+                if (capsOn || capsLock)
+                {
+                    putchar(get_acsii_high(scanCode), 0x07);
+                    join(input, get_acsii_high(scanCode));
+                }
+                else
+                {
+                    putchar(get_acsii_low(scanCode), 0x07);
+                    join(input, get_acsii_low(scanCode));
+                }
+            }
+            break;
+    }
+}
+
+void user_require(struct InterruptRegisters *regs)
+{
+    char scanCode = port_byte_in(0x60) & 0x7F;
+	  char press = port_byte_in(0x60) & 0x80;
     //kprint(lowercase[0x22]);
 
     switch (scanCode)
@@ -133,8 +234,6 @@ void shell(struct InterruptRegisters *regs)
             break;
     }
 }
-
-
 
 
 

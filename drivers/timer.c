@@ -22,12 +22,17 @@ void onIrq0(struct InterruptRegisters *regs)
 
 void init_timer()
 {
-    syscall("Setting up timer...\n", 0);
+    // 119318.16666 Mz
+    uint32_t divisor = 1193180 / freq;
+    syscall("dtime: Setting up timer...\n", 0);
+    syscall("On ", 0);
+    print_hex(divisor);
+    kprint(" (");
+    kprint_int(divisor);
+    kprint(")\n");
     ticks = 0;
     irq_install_handler(0, &onIrq0);
 
-    // 119318.16666 Mz
-    uint32_t divisor = 1193180 / freq;
     port_byte_out(0x43, 0x36);
     port_byte_out(0x40, (uint8_t)(divisor & 0xFF));
     port_byte_out(0x40, (uint8_t)((divisor >> 8) & 0xFF));

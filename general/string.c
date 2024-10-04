@@ -60,9 +60,7 @@ void memcp(char *source, char *dest, int nbytes) {
 void clearString(char *string)
 {
 
-  int length = strlen(string);
-
-  for (int i = length; i = 0; i--)
+  for (int i = strlen(string); i = 0; i--)
   {
 
     string[i] = 0x00;

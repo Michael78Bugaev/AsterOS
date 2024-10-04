@@ -19,34 +19,38 @@ void syscall(u8 *msg, int type)
 {
 	if (type == 0)
 	{
-		kprint_colored("[", 0x0B);
-		kprint_int_colored(get_ticks(), 0x0B);
-		kprint_colored("]", 0x0B);
+		kprint_colored("[", 0x07);
+		kprint_timetick();
+		kprint_colored("]", 0x07);
 		kprint(": ");
+		kprint("info: ");
 		kprint(msg);
 	}
 	else if (type == 1)
 	{
-		kprint_colored("[", 0x0E);
-		kprint_int_colored(get_ticks(), 0x0E);
-		kprint_colored("]", 0x0E);
+		kprint_colored("[", 0x07);
+		kprint_timetick();
+		kprint_colored("]", 0x07);
 		kprint(": ");
+		kprint("warning: ");
 		kprint(msg);
 	}
 	else if (type == 2)
 	{
-		kprint_colored("[", 0x0C);
-		kprint_int_colored(get_ticks(), 0x0C);
-		kprint_colored("]", 0x0C);
+		kprint_colored("[", 0x07);
+		kprint_timetick();
+		kprint_colored("]", 0x07);
 		kprint(": ");
+		kprint("error: ");
 		kprint(msg);
 	}
 	else if (type == 3)
 	{
-		kprint_colored("[", 0x04);
-		kprint_int_colored(get_ticks(), 0x04);
-		kprint_colored("]", 0x04);
+		kprint_colored("[", 0x07);
+		kprint_timetick();
+		kprint_colored("]", 0x07);
 		kprint_colored(": ", 0x07);
+		kprint("fatal error: ");
 		kprint_colored(msg, 0x07);
 	}
 }

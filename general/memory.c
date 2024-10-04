@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <mem.h>
+#include <screen.h>
 #include <utils.h>
 #include <stdbool.h>
 
@@ -14,6 +15,9 @@ void init_dmem()
     dynamic_mem_start->size = DYNAMIC_MEM_TOTAL_SIZE - DYNAMIC_MEM_NODE_SIZE;
     dynamic_mem_start->next = NULL_POINTER;
     dynamic_mem_start->prev = NULL_POINTER;
+    kprint("dmem total size: ");
+    kprint_int((int)dynamic_mem_start->size);
+    kprint("\n");
 }
 void *find_memblock(dynamic_mem_node_t *dynamic_mem, size_t size) {
     // initialize the result pointer with NULL and an invalid block size

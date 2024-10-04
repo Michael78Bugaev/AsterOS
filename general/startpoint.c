@@ -35,7 +35,6 @@ void execute(char input[])
         kprint_colored(" mem", 0x09); kprint("  print the memory");
 
     }
-    else if (strcmp(input, "") == 0);
     else if (strcmp(input, "halt") == 0)
     {
         syscall("System halted. Exit code: ", 0x03);
@@ -47,11 +46,11 @@ void execute(char input[])
     else if (strcmp(input, "vga") == 0)
     {
         clear_screen();
-        for (int i = 0; i < 256; i++)
+        for (int i = 0; i < 2048; i++)
         {
-            putchar(i, 0x07);
+            putchar(i, i);
         }
-        kprint("╬");
+        kprint(124);
     }
     else if (strcmp(input, "clear"))
     {
@@ -62,14 +61,9 @@ void execute(char input[])
 
     }
     else if (startsWith(input, '#') == 0);
+    else if (strcmp(input, "") == 0);
     else
     {
         kprint_colored("ash: error: Unknown command, or filename.", 0x0C);
     }
-    kprint_colored("\nash", 0xA);
-    kprint("-(asteros)-");
-    kprint_colored("[", 0x0D);
-    kprint_colored(current_dir, 0x0D);
-    kprint_colored("]", 0x0D);
-    kprint_colored(">&", 0x0F);
 }

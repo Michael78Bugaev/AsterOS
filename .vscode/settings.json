@@ -3,6 +3,7 @@
         "screen.h": "c",
         "stdint.h": "c",
         "timer.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "uinfo.h": "c"
     }
 }

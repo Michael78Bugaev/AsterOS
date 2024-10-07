@@ -24,8 +24,7 @@ void init_timer()
 {
     // 119318.16666 Mz
     uint32_t divisor = 1193180 / freq;
-    syscall("dtime: Setting up timer...\n", 0);
-    syscall("On ", 0);
+    kprint("dtime: Setting up timer on ");
     print_hex(divisor);
     kprint(" (");
     kprint_int(divisor);

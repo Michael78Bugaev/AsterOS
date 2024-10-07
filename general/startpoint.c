@@ -4,6 +4,7 @@
 #include <screen.h>
 #include <utils.h>
 #include <idt.h>
+#include <fat32.h>
 #include <timer.h>
 #include <keyboard.h>
 #include <string.h>
@@ -13,6 +14,7 @@ char current_dir[512] = "0:\\";
 
 void start_services()
 {
+    int a;
     // Starting interrupts
     init_idt();
 
@@ -22,6 +24,8 @@ void start_services()
 
     // Starting Dynamic Memory Managment
     init_dmem();
+
+    fat32_thread((void*)a);
 }
 void execute(char input[])
 {

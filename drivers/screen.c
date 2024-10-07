@@ -155,6 +155,8 @@ void	scroll_line()
 		write('\0', WHITE_ON_BLACK, (last_line + i * 2));
 		i++;
 	}
+	set_cursor(0);
+	kprint_colored("                                     AsterOS                                    ", 0x70);
 	set_cursor(last_line);
 }
 
@@ -168,7 +170,8 @@ void	clear_screen()
 		write('\0', WHITE_ON_BLACK, offset);
 		offset += 2;
 	}
-	set_cursor(0);
+	set_cursor(0);//                                                                                "
+	kprint_colored("                                     AsterOS                                    ", 0x70);
 }
 
 void	write(uint8_t character, uint8_t attribute_byte, uint16_t offset)

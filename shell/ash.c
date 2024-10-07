@@ -26,6 +26,18 @@ void ash(char arg[])
         if (ex == 0);
         else exit(ex, arg);
     }
+    else if (strcmp(arg, "halt") == 0)
+    {
+        ash_halt();
+    }
+    else if (strcmp(arg, "mname") == 0)
+    {
+        ash_mname();
+    }
+    else if (strcmp(arg, "1/0") == 0)
+    {
+        kprint(1/0);
+    }
     else
     {
         kprint("ash: unknown '");

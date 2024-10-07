@@ -2,6 +2,7 @@
 #include <screen.h>
 #include <idt.h>
 #include <utils.h>
+#include <sysconfig.h>
 #include <sp.h>
 #include <stdint.h>
 #include <ash.h>
@@ -111,7 +112,8 @@ void shell(struct InterruptRegisters *regs)
                 kprint("\n");
                 ash(input);
                 input[0] = '\0';
-                kprint("AsterOS > ");
+	              kprint(get_cur_dir());
+	              kprint(">");
             }
             else;    
                 

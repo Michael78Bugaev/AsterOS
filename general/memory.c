@@ -10,12 +10,12 @@ static dynamic_mem_node_t *dynamic_mem_start;
 
 void init_dmem()
 {
-    syscall("Initializing dmem...\n", 1);
+    kprint("dmem: initializing dmem...\n");
     dynamic_mem_start = (dynamic_mem_node_t *) dynamic_mem_area;
     dynamic_mem_start->size = DYNAMIC_MEM_TOTAL_SIZE - DYNAMIC_MEM_NODE_SIZE;
     dynamic_mem_start->next = NULL_POINTER;
     dynamic_mem_start->prev = NULL_POINTER;
-    kprint("dmem total size: ");
+    kprint("dmem: dynamic memory managment total size: ");
     kprint_int((int)dynamic_mem_start->size);
     kprint("\n");
 }

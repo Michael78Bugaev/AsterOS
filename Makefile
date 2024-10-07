@@ -7,6 +7,7 @@ run: ${OPEROS_FILE}
 	@qemu-system-i386 -fda ${OPEROS_FILE} -m 160000K
 
 ${OPEROS_FILE}: $(BUILD_DIR)bootsect.bin $(BUILD_DIR)kernel.bin
+	@echo "Compiling bootloader..."
 	@cat $(BUILD_DIR)bootsect.bin $(BUILD_DIR)kernel.bin > ${OPEROS_FILE}
 
 $(BUILD_DIR)bootsect.bin:
@@ -22,6 +23,7 @@ $(BUILD_DIR)idts.o:
 	@$(ASM) $(BOOT_DIR)idt.asm $(ASM_FLAGS_ELF) -o $@
 
 $(BUILD_DIR)kernel.o:
+	@echo "Compiling kernel..."
 	@$(CC) ${CFLAGS} $(C_FILES)
 
 clean:

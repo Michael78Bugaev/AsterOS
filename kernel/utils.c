@@ -1,9 +1,11 @@
 #include <utils.h>
 #include <screen.h>
+#include <stdint.h>
 #include <timer.h>
 #include <common.h>
+#include <sysconfig.h>
 
-void	kprint_colored(u8 *str, u8 attr)
+void	kprint_colored(uint8_t *str, uint8_t attr)
 {
 	while (*str)
 	{
@@ -72,4 +74,9 @@ void print_hex(uint32_t num)
 
     kprint("0x");
 	kprint(hex);
+}
+
+char *get_cur_dir()
+{
+	return "0:\\";
 }

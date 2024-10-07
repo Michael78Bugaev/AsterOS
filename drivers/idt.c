@@ -12,10 +12,12 @@ extern void idt_flush(uint32_t);
 
 void init_idt()
 {
-    syscall("idt_mgr: Setting up Interrupt Descriptor Table...", 0);
+    kprint("idt_mgr: Setting up Interrupt Descriptor Table...\n");
     idt_ptr.limit = sizeof(struct idt_entry_struct) * 256 - 1;
     idt_ptr.base = (uint32_t) &idt_entries;
     memset(&idt_entries, 0, sizeof(struct idt_entry_struct) * 256);
+    kprint("memset: ");
+    print_hex(&idt_entries);
 
     port_byte_out(0x20, 0x11);
     port_byte_out(0xA0, 0x11);
@@ -138,8 +140,13 @@ void isr_handler(struct InterruptRegisters* resgs)
 {
     if (resgs->int_no < 32)
     {
-        syscall("ISR/IRQ exception: ", 3);
-        kprint_colored((uint8_t*)exception_msg[resgs->int_no], 0xC0);
+        kprint_colored("idt_mgr: System exception: ", 0x0C);;
+        kprint_colored(exception_msg[resgs->int_no], 0x0C);
+        kprint_colored(".", 0x0C);
+        set_cursor(0);//                                                                                "
+        kprint_colored(" System halted  | ", 0x4F);
+        kprint_colored("sys exception", 0x4F);
+        kprint_colored("      AsterOS      Now you can turn off computer ", 0x4F);
         halt();
     }
 }

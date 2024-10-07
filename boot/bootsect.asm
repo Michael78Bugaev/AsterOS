@@ -12,11 +12,11 @@
 
 KERNEL_OFFSET equ 0x1000	; Смещение в памяти, из которого мы загрузим ядро
 	;Set 80x50 text mode...
-	mov ax, 4F02h
-	mov bx, 10Ah
+	;mov ax, 4F02h
+	;mov bx, 10Ah
 
-	;mov ax, 0x1112
-	;int 10h
+	mov ax, 0x1112
+	int 10h
 
 
 	mov [BOOT_DRIVE], dl	; BIOS stores our boot drive in DL , so it ’s
